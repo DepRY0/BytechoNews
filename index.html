@@ -1,0 +1,2143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BytechoNews - Digital Business & Global Economy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00f3ff;
+            --primary-dark: #00a8b5;
+            --secondary: #ff00ff;
+            --secondary-dark: #cc00cc;
+            --accent: #00ff9d;
+            --accent-dark: #00cc7d;
+            --dark: #0a0e17;
+            --darker: #050811;
+            --light: #e2f1ff;
+            --gray: #8a9bb2;
+            --gray-dark: #1a2332;
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 4px;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            line-height: 1.6;
+            color: var(--light);
+            background-color: var(--dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.05) 0%, transparent 20%),
+                linear-gradient(var(--darker) 1px, transparent 1px),
+                linear-gradient(90deg, var(--darker) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+            background-position: 0 0, 0 0, 0 0, 0 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header dengan efek digital */
+        header {
+            background-color: rgba(5, 8, 17, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .logo-icon {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            animation: rotate 5s linear infinite;
+            filter: blur(2px);
+        }
+
+        .logo-icon::after {
+            content: 'B';
+            position: absolute;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: white;
+            z-index: 2;
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            position: relative;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+
+        .logo-text::after {
+            content: 'News';
+            background: linear-gradient(90deg, var(--accent), #00ffcc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0.7;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+            padding: 8px 0;
+            position: relative;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--light);
+        }
+
+        nav a:hover::before {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--light);
+        }
+
+        nav a.active::before {
+            width: 100%;
+        }
+
+        /* Menu titik tiga (dropdown) */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-size: 20px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .dropdown-toggle:hover {
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: rgba(26, 35, 50, 0.95);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: var(--border-radius);
+            padding: 10px 0;
+            min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+
+        .dropdown.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 15px;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--primary);
+            padding-left: 25px;
+        }
+
+        .dropdown-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: rgba(138, 155, 178, 0.2);
+            margin: 8px 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Hero Section dengan efek futuristik */
+        .hero {
+            padding: 80px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 70% 70%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--light), var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: var(--gray);
+            max-width: 700px;
+        }
+
+        .hero-typing {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            margin-bottom: 30px;
+            min-height: 32px;
+            color: var(--accent);
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 28px;
+            background-color: var(--accent);
+            margin-left: 2px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .category {
+            background-color: rgba(26, 35, 50, 0.7);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            color: var(--light);
+            font-family: 'Space Grotesk', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .category:hover {
+            border-color: var(--primary);
+            box-shadow: var(--neon-glow);
+            transform: translateY(-5px);
+        }
+
+        .category:hover::before {
+            left: 100%;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--light);
+            padding-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .news-card {
+            background-color: rgba(26, 35, 50, 0.7);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            transition: var(--transition);
+            height: 100%;
+            position: relative;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(0, 243, 255, 0.05) 50%, transparent 70%);
+            z-index: 0;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .news-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            transform: translateY(-8px);
+        }
+
+        .news-card:hover::before {
+            opacity: 1;
+        }
+
+        .news-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: var(--transition);
+        }
+
+        .news-card:hover .news-image {
+            filter: grayscale(0%);
+        }
+
+        .news-content {
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .news-category {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: var(--darker);
+            padding: 6px 15px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .news-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            color: var(--light);
+        }
+
+        .news-excerpt {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .news-meta i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: rgba(26, 35, 50, 0.7);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            height: fit-content;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .trending-news {
+            margin-bottom: 30px;
+        }
+
+        .trending-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(138, 155, 178, 0.2);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .trending-item:hover {
+            border-bottom-color: var(--primary);
+        }
+
+        .trending-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .trending-number {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--darker);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+        }
+
+        .trending-content h4 {
+            font-size: 15px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--light);
+        }
+
+        .trending-content span {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background-color: rgba(26, 35, 50, 0.7);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .upload-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--light);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .form-label i {
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 14px 15px;
+            background-color: rgba(10, 14, 23, 0.7);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: var(--border-radius);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 15px;
+            transition: var(--transition);
+            color: var(--light);
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        .form-textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: rgba(138, 155, 178, 0.7);
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: var(--darker);
+            border: none;
+            padding: 14px 32px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(90deg, var(--secondary), var(--secondary-dark));
+        }
+
+        .btn-accent {
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+        }
+
+        .btn-full {
+            width: 100%;
+            grid-column: 1 / -1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(5, 8, 17, 0.9);
+            border-top: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 50px 0 20px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-logo span {
+            background: linear-gradient(90deg, var(--accent), #00ffcc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-about p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .footer-links h3, .footer-newsletter h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--light);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .footer-links h3::after, .footer-newsletter h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-input {
+            flex-grow: 1;
+            padding: 14px 15px;
+            background-color: rgba(10, 14, 23, 0.7);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            font-family: 'Exo 2', sans-serif;
+            color: var(--light);
+        }
+
+        .newsletter-btn {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: var(--darker);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .newsletter-btn:hover {
+            background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(138, 155, 178, 0.2);
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(10, 14, 23, 0.7);
+            color: var(--primary);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary);
+            color: var(--darker);
+            transform: translateY(-5px);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Message Styles */
+        .message {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: none;
+            border-left: 4px solid;
+        }
+
+        .message.success {
+            background-color: rgba(0, 255, 157, 0.1);
+            color: var(--accent);
+            border-color: var(--accent);
+            display: block;
+        }
+
+        .message.error {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            display: block;
+        }
+
+        .message.info {
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--primary);
+            border-color: var(--primary);
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero h1 {
+                font-size: 38px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            
+            nav {
+                width: 100%;
+                margin-top: 15px;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+                align-items: stretch;
+                background-color: rgba(26, 35, 50, 0.9);
+                border-radius: var(--border-radius);
+                padding: 15px;
+                border: 1px solid rgba(0, 243, 255, 0.2);
+            }
+            
+            nav li {
+                border-bottom: 1px solid rgba(138, 155, 178, 0.2);
+            }
+            
+            nav li:last-child {
+                border-bottom: none;
+            }
+            
+            nav a {
+                display: block;
+                padding: 12px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background-color: transparent;
+                border: none;
+                padding: 10px 0 0 20px;
+                display: none;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown-toggle {
+                width: 100%;
+                justify-content: space-between;
+                border-radius: 0;
+                padding: 12px 0;
+                font-size: 16px;
+            }
+            
+            .dropdown-toggle i:last-child {
+                transition: var(--transition);
+            }
+            
+            .dropdown.active .dropdown-toggle i:last-child {
+                transform: rotate(180deg);
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .upload-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 60px 0 40px;
+            }
+            
+            .categories {
+                gap: 10px;
+            }
+            
+            .logo-text {
+                font-size: 24px;
+            }
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background-color: rgba(26, 35, 50, 0.9);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(138, 155, 178, 0.2);
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .admin-btn {
+            background: rgba(10, 14, 23, 0.7);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            color: var(--light);
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .admin-btn:hover {
+            background: var(--primary);
+            color: var(--darker);
+            border-color: var(--primary);
+        }
+
+        .news-list {
+            margin-top: 20px;
+        }
+
+        .news-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: rgba(10, 14, 23, 0.7);
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            border: 1px solid rgba(138, 155, 178, 0.1);
+            transition: var(--transition);
+        }
+
+        .news-item:hover {
+            border-color: var(--primary);
+            background-color: rgba(10, 14, 23, 0.9);
+        }
+
+        .news-item-info h4 {
+            color: var(--light);
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .news-item-info span {
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        .news-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn.edit:hover {
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .action-btn.delete:hover {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: #ff6b6b;
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(1px);
+            animation: float 15s infinite linear;
+        }
+
+        .floating-element:nth-child(2) {
+            background-color: var(--secondary);
+            width: 8px;
+            height: 8px;
+            top: 20%;
+            left: 10%;
+            animation-duration: 18s;
+            animation-delay: 1s;
+        }
+
+        .floating-element:nth-child(3) {
+            background-color: var(--accent);
+            width: 12px;
+            height: 12px;
+            top: 60%;
+            left: 80%;
+            animation-duration: 12s;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(4) {
+            background-color: var(--primary);
+            width: 6px;
+            height: 6px;
+            top: 80%;
+            left: 20%;
+            animation-duration: 20s;
+            animation-delay: 3s;
+        }
+
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 8, 17, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: rgba(26, 35, 50, 0.95);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-size: 24px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        .modal h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: var(--light);
+            text-align: center;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 25px;
+        }
+        
+        /* Admin badge */
+        .admin-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+            color: var(--darker);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        
+        /* User info in dropdown */
+        .user-info {
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(138, 155, 178, 0.2);
+            margin-bottom: 10px;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+        }
+        
+        .user-role {
+            font-size: 12px;
+            color: var(--gray);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2>Admin Login</h2>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username" class="form-label"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" class="form-input" placeholder="Masukkan username admin" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="Masukkan password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-full">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">Bytecho<span>News</span></div>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#" class="active">Beranda</a></li>
+                    <li><a href="#news">Berita</a></li>
+                    <li><a href="#categories">Kategori</a></li>
+                    <li><a href="#upload">Upload Berita</a></li>
+                    <!-- Menu titik tiga untuk admin -->
+                    <li class="dropdown" id="adminDropdown">
+                        <button class="dropdown-toggle">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu" id="adminMenu">
+                            <!-- User info akan muncul setelah login -->
+                            <div class="user-info" id="userInfo" style="display: none;">
+                                <div class="user-name" id="userName">Admin Bytecho</div>
+                                <div class="user-role">Administrator</div>
+                            </div>
+                            <div class="dropdown-divider" id="userDivider" style="display: none;"></div>
+                            <a href="#" class="dropdown-item" id="adminLoginItem">
+                                <i class="fas fa-sign-in-alt"></i> Admin Login
+                            </a>
+                            <a href="#" class="dropdown-item" id="adminPanelItem" style="display: none;">
+                                <i class="fas fa-cog"></i> Admin Panel
+                            </a>
+                            <a href="#" class="dropdown-item" id="logoutItem" style="display: none;">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-question-circle"></i> Bantuan
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-info-circle"></i> Tentang
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Digital Business & Global Economy Insights</h1>
+            <div class="hero-typing" id="typingText"></div>
+            <p>BytechoNews memberikan analisis mendalam tentang perkembangan teknologi, ekonomi digital, dan tren bisnis masa depan yang membentuk dunia digital.</p>
+            <div class="categories">
+                <div class="category">Digital Business</div>
+                <div class="category">Global Economy</div>
+                <div class="category">Future Tech</div>
+                <div class="category">Startup & Innovation</div>
+                <div class="category">Fintech Revolution</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Admin Panel -->
+        <div class="admin-panel" id="adminPanel">
+            <div class="admin-header">
+                <h3 class="section-title">Admin Panel <span class="admin-badge">ADMIN</span></h3>
+                <div class="admin-actions">
+                    <button class="admin-btn" id="refreshNews"><i class="fas fa-sync-alt"></i> Refresh</button>
+                    <button class="admin-btn" id="exportNews"><i class="fas fa-download"></i> Export Data</button>
+                    <button class="admin-btn" id="clearAllNews"><i class="fas fa-trash"></i> Hapus Semua</button>
+                    <button class="admin-btn" id="logoutAdmin"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+            <div class="news-list" id="adminNewsList">
+                <!-- Admin news list will be loaded here -->
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- News Section -->
+            <main>
+                <h2 class="section-title" id="news">Berita Terbaru</h2>
+                <div class="news-grid" id="newsGrid">
+                    <!-- News cards will be dynamically generated here -->
+                </div>
+                
+                <!-- Upload Section -->
+                <div class="upload-section" id="upload">
+                    <h2 class="section-title">Upload Berita Baru</h2>
+                    <div id="message" class="message"></div>
+                    <form id="newsForm" class="upload-form">
+                        <div class="form-group">
+                            <label for="newsTitle" class="form-label"><i class="fas fa-heading"></i> Judul Berita</label>
+                            <input type="text" id="newsTitle" class="form-input" placeholder="Masukkan judul berita yang menarik" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newsCategory" class="form-label"><i class="fas fa-tag"></i> Kategori</label>
+                            <select id="newsCategory" class="form-select" required>
+                                <option value="" disabled selected>Pilih kategori berita</option>
+                                <option value="Digital Business">Digital Business</option>
+                                <option value="Global Economy">Global Economy</option>
+                                <option value="Future Tech">Future Tech</option>
+                                <option value="Startup & Innovation">Startup & Innovation</option>
+                                <option value="Fintech Revolution">Fintech Revolution</option>
+                                <option value="AI & Machine Learning">AI & Machine Learning</option>
+                                <option value="Blockchain & Crypto">Blockchain & Crypto</option>
+                                <option value="E-commerce">E-commerce</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newsImage" class="form-label"><i class="fas fa-image"></i> URL Gambar</label>
+                            <input type="text" id="newsImage" class="form-input" placeholder="Masukkan URL gambar (rekomendasi: Unsplash)" required>
+                            <small style="color: var(--gray); font-size: 12px; margin-top: 5px; display: block;">Rekomendasi: https://images.unsplash.com/photo-...</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newsAuthor" class="form-label"><i class="fas fa-user-edit"></i> Nama Penulis</label>
+                            <input type="text" id="newsAuthor" class="form-input" placeholder="Masukkan nama penulis" required>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="newsContent" class="form-label"><i class="fas fa-edit"></i> Isi Berita</label>
+                            <textarea id="newsContent" class="form-textarea" placeholder="Tulis isi berita di sini..." required rows="6"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-full"><i class="fas fa-cloud-upload-alt"></i> Upload Berita</button>
+                        <button type="button" id="clearForm" class="btn btn-secondary btn-full"><i class="fas fa-broom"></i> Bersihkan Form</button>
+                    </form>
+                </div>
+            </main>
+            
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="trending-news">
+                    <h3 class="section-title" id="categories">Trending Now</h3>
+                    <div id="trendingList">
+                        <!-- Trending news will be dynamically generated here -->
+                    </div>
+                </div>
+                
+                <div class="categories-sidebar">
+                    <h3 class="section-title">Kategori Populer</h3>
+                    <div class="categories">
+                        <div class="category">Digital Business</div>
+                        <div class="category">Global Economy</div>
+                        <div class="category">Future Tech</div>
+                        <div class="category">Startup & Innovation</div>
+                        <div class="category">Fintech Revolution</div>
+                        <div class="category">AI & Machine Learning</div>
+                        <div class="category">Blockchain & Crypto</div>
+                        <div class="category">E-commerce</div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Bytecho<span>News</span></div>
+                    <p>Platform berita futuristik yang membahas perkembangan digital business, ekonomi global, dan kemajuan teknologi masa depan dengan analisis mendalam.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Beranda</a></li>
+                        <li><a href="#news">Berita Terbaru</a></li>
+                        <li><a href="#categories">Kategori</a></li>
+                        <li><a href="#upload">Upload Berita</a></li>
+                        <li><a href="#" id="adminHelpLink">Admin Access</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Digital Newsletter</h3>
+                    <p>Dapatkan update berita futuristik langsung ke inbox Anda.</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" class="newsletter-input" placeholder="Your digital address" required>
+                        <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                    <p id="newsletterMessage" style="font-size: 13px; color: var(--gray);"></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 BytechoNews. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--secondary);"></i> for the digital era</p>
+                <p>BytechoNews - The Future of News</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Typing effect for hero section
+        const typingText = document.getElementById('typingText');
+        const phrases = [
+            "Exploring the Future of Digital Business",
+            "Analyzing Global Economic Trends",
+            "Uncovering Tech Innovations",
+            "Reporting on Startup Ecosystems"
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let isEnd = false;
+
+        function typeEffect() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isEnd = true;
+                isDeleting = true;
+                setTimeout(typeEffect, 1500);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(typeEffect, 500);
+            } else {
+                const typeSpeed = isDeleting ? 50 : 100;
+                setTimeout(typeEffect, typeSpeed);
+            }
+        }
+
+        // Initial news data with digital/futuristic focus
+        const initialNews = [
+            {
+                id: 1,
+                title: "Quantum Computing: The Next Frontier in Business Optimization",
+                category: "Future Tech",
+                image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                excerpt: "Quantum computing promises to revolutionize industries from finance to logistics by solving complex problems exponentially faster than classical computers.",
+                author: "Dr. Elena Rodriguez",
+                date: "18 Juni 2023",
+                trending: true,
+                content: "Quantum computing represents a paradigm shift in computational power. Unlike classical computers that use bits (0s and 1s), quantum computers use quantum bits or qubits that can exist in multiple states simultaneously through superposition. This allows them to process vast amounts of data and solve complex optimization problems that are currently intractable for classical computers. Industries from pharmaceutical research to financial modeling are investing heavily in quantum computing research, with potential applications including drug discovery, climate modeling, and cryptography."
+            },
+            {
+                id: 2,
+                title: "Metaverse Economies: Virtual Real Estate Market Hits $1 Billion",
+                category: "Digital Business",
+                image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1332&q=80",
+                excerpt: "The virtual real estate market within metaverse platforms has surpassed $1 billion in transactions, creating new digital business opportunities.",
+                author: "Marcus Chen",
+                date: "17 Juni 2023",
+                trending: true,
+                content: "The metaverse economy is rapidly evolving beyond gaming and entertainment into a serious business platform. Virtual real estate parcels in platforms like Decentraland, The Sandbox, and Somnium Space are being purchased by major brands, celebrities, and investors. These digital properties are being developed into virtual stores, galleries, event spaces, and offices. The market hit $1 billion in transactions last year, with some prime virtual locations selling for millions. This new digital frontier is creating opportunities for architects, designers, event planners, and marketers in the virtual space."
+            },
+            {
+                id: 3,
+                title: "AI-Driven Personalization: Transforming Global E-commerce",
+                category: "AI & Machine Learning",
+                image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                excerpt: "Advanced AI algorithms are creating hyper-personalized shopping experiences, increasing conversion rates by up to 40% for forward-thinking retailers.",
+                author: "Sophia Williams",
+                date: "16 Juni 2023",
+                trending: true,
+                content: "Artificial intelligence is revolutionizing the e-commerce landscape through hyper-personalization. Modern AI systems analyze customer behavior, preferences, browsing history, and even social media activity to create individualized shopping experiences. These systems can predict what products customers are likely to purchase, when they're most likely to buy, and at what price point. Leading retailers using these AI-driven personalization engines report conversion rate increases of 30-40% and average order value increases of 15-20%. The technology is becoming increasingly sophisticated, with some systems even generating custom product designs based on individual customer preferences."
+            },
+            {
+                id: 4,
+                title: "Decentralized Finance (DeFi) Challenges Traditional Banking",
+                category: "Fintech Revolution",
+                image: "https://images.unsplash.com/photo-1620336655055-bd87c5d1d73f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                excerpt: "DeFi protocols are offering banking services without intermediaries, with total value locked surpassing $80 billion globally.",
+                author: "David Park",
+                date: "15 Juni 2023",
+                trending: false,
+                content: "Decentralized Finance (DeFi) is disrupting traditional financial systems by offering banking services without centralized intermediaries. Built primarily on blockchain technology, DeFi platforms allow users to lend, borrow, trade, and earn interest on their cryptocurrency holdings directly through smart contracts. The total value locked in DeFi protocols has surpassed $80 billion, despite market volatility. These platforms offer advantages including greater accessibility (especially for the unbanked), transparency through public ledgers, and reduced costs by eliminating intermediaries. However, challenges remain including regulatory uncertainty, security vulnerabilities, and user experience barriers for non-technical users."
+            }
+        ];
+
+        // Admin credentials (in a real app, this would be on a server)
+        const ADMIN_USERNAME = "admin";
+        const ADMIN_PASSWORD = "bytecho2023";
+        let isAdminLoggedIn = false;
+
+        // Load news from localStorage or use initial data
+        let newsData = JSON.parse(localStorage.getItem('bytechonews')) || initialNews;
+        
+        // Start typing effect
+        setTimeout(typeEffect, 1000);
+        
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+            
+            // Change icon
+            const icon = this.querySelector('i');
+            if (nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Dropdown toggle
+        const dropdown = document.getElementById('adminDropdown');
+        const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+        
+        dropdownToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('active');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+        
+        // Update admin menu based on login status
+        function updateAdminMenu() {
+            const adminLoginItem = document.getElementById('adminLoginItem');
+            const adminPanelItem = document.getElementById('adminPanelItem');
+            const logoutItem = document.getElementById('logoutItem');
+            const userInfo = document.getElementById('userInfo');
+            const userDivider = document.getElementById('userDivider');
+            const userName = document.getElementById('userName');
+            
+            if (isAdminLoggedIn) {
+                adminLoginItem.style.display = 'none';
+                adminPanelItem.style.display = 'block';
+                logoutItem.style.display = 'block';
+                userInfo.style.display = 'block';
+                userDivider.style.display = 'block';
+                userName.textContent = 'Admin Bytecho';
+            } else {
+                adminLoginItem.style.display = 'block';
+                adminPanelItem.style.display = 'none';
+                logoutItem.style.display = 'none';
+                userInfo.style.display = 'none';
+                userDivider.style.display = 'none';
+            }
+        }
+        
+        // Display news cards
+        function displayNews() {
+            const newsGrid = document.getElementById('newsGrid');
+            newsGrid.innerHTML = '';
+            
+            // Sort by date (newest first) - in a real app you'd use actual dates
+            const sortedNews = [...newsData].sort((a, b) => b.id - a.id);
+            
+            sortedNews.forEach(news => {
+                const newsCard = document.createElement('div');
+                newsCard.className = 'news-card';
+                newsCard.innerHTML = `
+                    <img src="${news.image}" alt="${news.title}" class="news-image">
+                    <div class="news-content">
+                        <span class="news-category">${news.category}</span>
+                        <h3 class="news-title">${news.title}</h3>
+                        <p class="news-excerpt">${news.excerpt}</p>
+                        <div class="news-meta">
+                            <span><i class="fas fa-user-edit"></i> ${news.author}</span>
+                            <span><i class="fas fa-calendar-alt"></i> ${news.date}</span>
+                        </div>
+                    </div>
+                `;
+                newsGrid.appendChild(newsCard);
+            });
+            
+            // Display trending news
+            displayTrendingNews();
+            
+            // Update admin panel if logged in
+            if (isAdminLoggedIn) {
+                displayAdminNewsList();
+            }
+        }
+        
+        // Display trending news in sidebar
+        function displayTrendingNews() {
+            const trendingList = document.getElementById('trendingList');
+            trendingList.innerHTML = '';
+            
+            const trendingNews = newsData.filter(news => news.trending).slice(0, 5);
+            
+            trendingNews.forEach((news, index) => {
+                const trendingItem = document.createElement('div');
+                trendingItem.className = 'trending-item';
+                trendingItem.innerHTML = `
+                    <div class="trending-number">${index + 1}</div>
+                    <div class="trending-content">
+                        <h4>${news.title}</h4>
+                        <span>${news.category} • ${news.date}</span>
+                    </div>
+                `;
+                trendingList.appendChild(trendingItem);
+            });
+        }
+        
+        // Display news list in admin panel
+        function displayAdminNewsList() {
+            const adminNewsList = document.getElementById('adminNewsList');
+            adminNewsList.innerHTML = '';
+            
+            // Sort by date (newest first)
+            const sortedNews = [...newsData].sort((a, b) => b.id - a.id);
+            
+            if (sortedNews.length === 0) {
+                adminNewsList.innerHTML = '<div class="message info">Belum ada berita yang diupload. Mulai upload berita pertama Anda!</div>';
+                return;
+            }
+            
+            sortedNews.forEach(news => {
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                newsItem.setAttribute('data-id', news.id);
+                newsItem.innerHTML = `
+                    <div class="news-item-info">
+                        <h4>${news.title}</h4>
+                        <span>${news.category} • ${news.author} • ${news.date}</span>
+                    </div>
+                    <div class="news-item-actions">
+                        <button class="action-btn edit" data-id="${news.id}" title="Edit berita"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete" data-id="${news.id}" title="Hapus berita"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                adminNewsList.appendChild(newsItem);
+            });
+            
+            // Add event listeners for edit and delete buttons
+            document.querySelectorAll('.action-btn.edit').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const newsId = parseInt(this.getAttribute('data-id'));
+                    editNews(newsId);
+                });
+            });
+            
+            document.querySelectorAll('.action-btn.delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const newsId = parseInt(this.getAttribute('data-id'));
+                    deleteNews(newsId);
+                });
+            });
+        }
+        
+        // Handle form submission
+        document.getElementById('newsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('newsTitle').value;
+            const category = document.getElementById('newsCategory').value;
+            const image = document.getElementById('newsImage').value;
+            const author = document.getElementById('newsAuthor').value;
+            const content = document.getElementById('newsContent').value;
+            
+            // Validate image URL
+            if (!isValidImageUrl(image)) {
+                showMessage('URL gambar tidak valid. Harap masukkan URL gambar yang benar (rekomendasi: Unsplash).', 'error');
+                return;
+            }
+            
+            // Check if we're editing an existing news
+            const editingId = this.getAttribute('data-editing');
+            
+            if (editingId) {
+                // Update existing news
+                const newsIndex = newsData.findIndex(news => news.id === parseInt(editingId));
+                if (newsIndex !== -1) {
+                    newsData[newsIndex] = {
+                        ...newsData[newsIndex],
+                        title: title,
+                        category: category,
+                        image: image,
+                        author: author,
+                        content: content,
+                        excerpt: content.length > 150 ? content.substring(0, 150) + '...' : content
+                    };
+                    
+                    // Save to localStorage
+                    localStorage.setItem('bytechonews', JSON.stringify(newsData));
+                    
+                    // Update display
+                    displayNews();
+                    
+                    // Show success message
+                    showMessage('Berita berhasil diperbarui!', 'success');
+                    
+                    // Reset form and remove editing attribute
+                    this.reset();
+                    this.removeAttribute('data-editing');
+                    
+                    // Change button text back to "Upload Berita"
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Upload Berita';
+                }
+            } else {
+                // Create new news item
+                const newNews = {
+                    id: newsData.length > 0 ? Math.max(...newsData.map(n => n.id)) + 1 : 1,
+                    title: title,
+                    category: category,
+                    image: image,
+                    excerpt: content.length > 150 ? content.substring(0, 150) + '...' : content,
+                    author: author,
+                    date: getCurrentDate(),
+                    trending: false,
+                    content: content
+                };
+                
+                // Add to news data
+                newsData.unshift(newNews);
+                
+                // Save to localStorage
+                    localStorage.setItem('bytechonews', JSON.stringify(newsData));
+                
+                // Update display
+                displayNews();
+                
+                // Show success message
+                showMessage('Berita berhasil diupload! Berita Anda sekarang ditampilkan di halaman utama.', 'success');
+                
+                // Clear form
+                this.reset();
+            }
+        });
+        
+        // Edit news function
+        function editNews(newsId) {
+            const news = newsData.find(n => n.id === newsId);
+            if (!news) return;
+            
+            // Fill form with news data
+            document.getElementById('newsTitle').value = news.title;
+            document.getElementById('newsCategory').value = news.category;
+            document.getElementById('newsImage').value = news.image;
+            document.getElementById('newsAuthor').value = news.author;
+            document.getElementById('newsContent').value = news.content;
+            
+            // Set form to editing mode
+            const form = document.getElementById('newsForm');
+            form.setAttribute('data-editing', newsId);
+            
+            // Change button text
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Berita';
+            
+            // Show message
+            showMessage('Mengedit berita: ' + news.title, 'info');
+            
+            // Scroll to form
+            document.getElementById('upload').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Delete news function
+        function deleteNews(newsId) {
+            if (confirm('Apakah Anda yakin ingin menghapus berita ini?')) {
+                // Remove news from array
+                newsData = newsData.filter(news => news.id !== newsId);
+                
+                // Save to localStorage
+                localStorage.setItem('bytechonews', JSON.stringify(newsData));
+                
+                // Update display
+                displayNews();
+                
+                // Show success message
+                showMessage('Berita berhasil dihapus!', 'success');
+            }
+        }
+        
+        // Clear form button
+        document.getElementById('clearForm').addEventListener('click', function() {
+            const form = document.getElementById('newsForm');
+            form.reset();
+            form.removeAttribute('data-editing');
+            
+            // Change button text back to "Upload Berita"
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Upload Berita';
+            
+            document.getElementById('message').style.display = 'none';
+        });
+        
+        // Newsletter form submission
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = this.querySelector('input[type="email"]');
+            const messageEl = document.getElementById('newsletterMessage');
+            
+            if (emailInput.value) {
+                messageEl.textContent = 'Terima kasih! Anda telah berlangganan newsletter BytechoNews.';
+                messageEl.style.color = 'var(--accent)';
+                emailInput.value = '';
+                
+                // Reset message after 5 seconds
+                setTimeout(() => {
+                    messageEl.textContent = '';
+                }, 5000);
+            }
+        });
+        
+        // Admin login from dropdown
+        document.getElementById('adminLoginItem').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('loginModal').classList.add('active');
+            dropdown.classList.remove('active');
+        });
+        
+        // Admin panel from dropdown
+        document.getElementById('adminPanelItem').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Toggle admin panel visibility
+            const adminPanel = document.getElementById('adminPanel');
+            adminPanel.classList.toggle('active');
+            
+            if (adminPanel.classList.contains('active')) {
+                displayAdminNewsList();
+                showMessage('Admin Panel dibuka. Anda dapat mengelola berita di sini.', 'info');
+                // Scroll to admin panel
+                adminPanel.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            dropdown.classList.remove('active');
+        });
+        
+        // Logout from dropdown
+        document.getElementById('logoutItem').addEventListener('click', function(e) {
+            e.preventDefault();
+            logoutAdmin();
+            dropdown.classList.remove('active');
+        });
+        
+        // Admin help link in footer
+        document.getElementById('adminHelpLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            showMessage('Untuk akses admin, klik menu titik tiga di navigasi dan pilih "Admin Login".', 'info');
+        });
+        
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                isAdminLoggedIn = true;
+                
+                // Close modal
+                document.getElementById('loginModal').classList.remove('active');
+                
+                // Update admin menu
+                updateAdminMenu();
+                
+                // Show admin panel
+                document.getElementById('adminPanel').classList.add('active');
+                
+                // Load admin news list
+                displayAdminNewsList();
+                
+                // Show success message
+                showMessage('Login berhasil! Selamat datang di Admin Panel.', 'success');
+                
+                // Clear login form
+                this.reset();
+                
+                // Scroll to admin panel
+                document.getElementById('adminPanel').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                showMessage('Username atau password salah. Coba lagi.', 'error');
+            }
+        });
+        
+        // Close modal button
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('loginModal').classList.remove('active');
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('loginModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+        
+        // Admin panel buttons
+        document.getElementById('refreshNews').addEventListener('click', function() {
+            displayNews();
+            showMessage('Daftar berita diperbarui!', 'success');
+        });
+        
+        document.getElementById('exportNews').addEventListener('click', function() {
+            // Create a JSON file with news data
+            const dataStr = JSON.stringify(newsData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'bytechonews-data.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showMessage('Data berita berhasil diexport!', 'success');
+        });
+        
+        document.getElementById('clearAllNews').addEventListener('click', function() {
+            if (confirm('PERINGATAN: Apakah Anda yakin ingin menghapus SEMUA berita? Tindakan ini tidak dapat dibatalkan.')) {
+                // Keep only initial news
+                newsData = initialNews;
+                
+                // Save to localStorage
+                localStorage.setItem('bytechonews', JSON.stringify(newsData));
+                
+                // Update display
+                displayNews();
+                
+                // Show success message
+                showMessage('Semua berita berhasil dihapus! Hanya berita default yang tersisa.', 'success');
+            }
+        });
+        
+        document.getElementById('logoutAdmin').addEventListener('click', function() {
+            logoutAdmin();
+        });
+        
+        // Logout function
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            document.getElementById('adminPanel').classList.remove('active');
+            updateAdminMenu();
+            showMessage('Anda telah logout dari Admin Panel.', 'info');
+        }
+        
+        // Helper functions
+        function showMessage(text, type) {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = text;
+            messageEl.className = `message ${type}`;
+            messageEl.style.display = 'block';
+            
+            // Scroll to message
+            messageEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 5000);
+        }
+        
+        function getCurrentDate() {
+            const now = new Date();
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            return now.toLocaleDateString('id-ID', options);
+        }
+        
+        function isValidImageUrl(url) {
+            // Simple URL validation for demo purposes
+            return url.startsWith('http') && (url.includes('.jpg') || url.includes('.jpeg') || url.includes('.png') || url.includes('.unsplash.com') || url.includes('images.unsplash.com'));
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Close mobile menu if open
+                    const nav = document.getElementById('mainNav');
+                    const mobileBtn = document.getElementById('mobileMenuBtn');
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        const icon = mobileBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+        
+        // Initialize the page
+        displayNews();
+        updateAdminMenu();
+        
+        // Add sample data to localStorage if empty
+        if (!localStorage.getItem('bytechonews')) {
+            localStorage.setItem('bytechonews', JSON.stringify(initialNews));
+        }
+    </script>
+</body>
+</html>
